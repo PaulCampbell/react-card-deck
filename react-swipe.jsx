@@ -42,7 +42,7 @@ var SwipeList = React.createClass({
                            };
                          },
   getCardPositionStyle:  function(xPos, yPos, rotation) {
-                           return 'translate3d(' + xPos.toString() +',' + yPos.toString() + '0) scale3d(1,1,1) rotate(' + rotation + 'deg)'
+                           return 'translate3d(' + xPos.toString() +'px,' + yPos.toString() + 'px, 0) scale3d(1,1,1) rotate(' + rotation + 'deg)'
                          },
   render: function() {
             return (
