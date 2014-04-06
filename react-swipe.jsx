@@ -11,7 +11,8 @@ var SwipeList = React.createClass({
                            this.hammer.on('release', this.release);
                          },
   componentWillUnmount:  function() {
-                           this.hammer.off('swipeleft', this.swipeLeft);
+                           this.hammer.off('drag', this.drag);
+                           this.hammer.off('release', this.release);
                          },
   nextCard:              function() {
                            var activeCard = this.state.activeCard
