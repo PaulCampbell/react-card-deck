@@ -16,9 +16,18 @@ var SwipeList = React.createClass({
   nextCard:              function() {
                            var activeCard = this.state.activeCard
                            this.state.cards.splice(0,1)
+                           if(this.state.cards.length < 3) {
+                             this.addMoreCardsToDeck();
+                           }
                            this.setState({ cards: this.state.cards});
                            this.setState({ activeCardTransform: this.getCardPositionStyle(0,0,0)})
                            this.setState({ activeCard: this.state.cards[0] });
+                         },
+  addMoreCardsToDeck:    function() {
+                           this.state.cards.push({name:"someOtherCard", background:'blue'})
+                           this.state.cards.push({name:"Card, yeah?", background:'pink'})
+                           this.state.cards.push({name:"another card.", background:'yellow'})
+                           this.state.cards.push({name:"THISISACARD!", background:'green'})
                          },
   release:               function(ev) {
                            if(Math.abs(ev.gesture.deltaX) > 300/3) {
@@ -30,7 +39,9 @@ var SwipeList = React.createClass({
   drag:                  function(ev) {
                            var dragX_offset = ev.gesture.deltaX
                            var dragY_offset = ev.gesture.deltaY
-                           this.setState({activeCardTransform: this.getCardPositionStyle(dragX_offset, dragY_offset,8)})
+                           var rotation = 4;
+                           if(dragX_offset < 0) rotation = -4;
+                           this.setState({activeCardTransform: this.getCardPositionStyle(dragX_offset, dragY_offset,rotation)})
                          },
   getInitialState:       function() {
                            firstcard = { background: 'red', name: 1 }
