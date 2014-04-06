@@ -16,16 +16,16 @@ var onError = function (err) {
 gulp.task('scripts', function() {
     return gulp.src(['./react-swipe.jsx'])
     .pipe(plumber({
-      errorHandler: onError,
-      transform: 'reactify'
+      errorHandler: onError
     }))
     .pipe(browserify({
-          insertGlobals: true
+      insertGlobals: true,
+      transform: 'reactify'
     }))
     .pipe(concat('bundle.js'))
     .pipe(gulp.dest('./'))
 });
 
 gulp.task('default', function() {
-  gulp.watch(['./react-swipe.jsx'],['scripts'], function() {});
+  gulp.watch(['**.jsx'],['scripts']);
 });

@@ -14,7 +14,6 @@ var SwipeList = React.createClass({
                            this.hammer.off('swipeleft', this.swipeLeft);
                          },
   nextCard:              function() {
-                           console.log('next card');
                            var activeCard = this.state.activeCard
                            this.state.cards.splice(0,1)
                            this.setState({ cards: this.state.cards});
