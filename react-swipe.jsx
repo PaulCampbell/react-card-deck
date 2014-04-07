@@ -42,7 +42,7 @@ var SwipeList = React.createClass({
                            var dragY_offset = ev.gesture.deltaY
                            var rotation = 4;
                            if(dragX_offset < 0) rotation = -4;
-                           this.setState({activeCardTransform: this.getCardPositionStyle(dragX_offset, dragY_offset,rotation)})
+                           this.setState({activeCardTransform: this.getCardPositionStyle(dragX_offset, dragY_offset,rotation, 1.03)})
                          },
   getInitialState:       function() {
                            firstcard = { background: 'red', name: 1 }
@@ -52,8 +52,9 @@ var SwipeList = React.createClass({
                              activeCardTransform: this.getCardPositionStyle(0,0,0)
                            };
                          },
-  getCardPositionStyle:  function(xPos, yPos, rotation) {
-                           return 'translate3d(' + xPos.toString() +'px,' + yPos.toString() + 'px, 0) scale3d(1,1,1) rotate(' + rotation + 'deg)'
+  getCardPositionStyle:  function(xPos, yPos, rotation, scale) {
+                           if(!scale) scale = 1
+                           return 'translate3d(' + xPos +'px,' + yPos + 'px, 0) scale3d(' + scale + ',' + scale + ',1) rotate(' + rotation + 'deg)'
                          },
   render: function() {
             return (
