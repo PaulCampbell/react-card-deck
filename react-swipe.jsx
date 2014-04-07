@@ -44,12 +44,12 @@ var SwipeList = React.createClass({
                            var dragY_offset = ev.gesture.deltaY
                            var rotation = 4;
                            if(dragX_offset < 0) rotation = -4;
-                           if(dragX_offset > 70) {
+                           if(dragX_offset < -70) {
                              this.setState({discardDisplay: "show" })
                            } else {
                              this.setState({discardDisplay: "hide" })
                            }
-                           if(dragX_offset < -70) {
+                           if(dragX_offset > 70) {
                              this.setState({keepDisplay: "show" })
                            } else {
                              this.setState({keepDisplay: "hide" })
