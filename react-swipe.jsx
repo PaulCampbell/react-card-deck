@@ -31,6 +31,8 @@ var SwipeList = React.createClass({
                            this.state.cards.push({name:"THISISACARD!", background:'green'})
                          },
   release:               function(ev) {
+                           this.setState({keepDisplay: "hide" })
+                           this.setState({discardDisplay: "hide" })
                            if(Math.abs(ev.gesture.deltaX) > 300/3) {
                              this.nextCard();
                            } else {
@@ -42,6 +44,16 @@ var SwipeList = React.createClass({
                            var dragY_offset = ev.gesture.deltaY
                            var rotation = 4;
                            if(dragX_offset < 0) rotation = -4;
+                           if(dragX_offset > 70) {
+                             this.setState({discardDisplay: "show" })
+                           } else {
+                             this.setState({discardDisplay: "hide" })
+                           }
+                           if(dragX_offset < -70) {
+                             this.setState({keepDisplay: "show" })
+                           } else {
+                             this.setState({keepDisplay: "hide" })
+                           }
                            this.setState({activeCardTransform: this.getCardPositionStyle(dragX_offset, dragY_offset,rotation, 1.03)})
                          },
   getInitialState:       function() {
@@ -49,7 +61,9 @@ var SwipeList = React.createClass({
                            return {
                              cards: [firstcard, {background: 'green', name: 2}, {background: 'blue', name: 3}],
                              activeCard: firstcard,
-                             activeCardTransform: this.getCardPositionStyle(0,0,0)
+                             activeCardTransform: this.getCardPositionStyle(0,0,0),
+                             discardDisplay: "hide",
+                             keepDisplay: "hide"
                            };
                          },
   getCardPositionStyle:  function(xPos, yPos, rotation, scale) {
@@ -62,8 +76,10 @@ var SwipeList = React.createClass({
                 <ul className="card">
                 {this.state.cards.map(function(card, i) {
                   return <li key={i} className={card==this.state.activeCard ? "active" : ""} style={card==this.state.activeCard ? {"-webkit-transform": this.state.activeCardTransform} : {"-webkit-transform": this.getCardPositionStyle(0,0,0)}}>
-                <h2 style={{color: card.background}}>{card.name}</h2>
-              </li>
+                  <h2 style={{color: card.background}}>{card.name}</h2>
+                  <div className={card==this.state.activeCard ? this.state.keepDisplay + " keep action" : "hide keep action"}></div>
+                  <div className={card==this.state.activeCard ? this.state.discardDisplay + " discard action" : "hide discard action"}></div>
+                </li>
                 }.bind(this))}
                 </ul>
                 </div>
